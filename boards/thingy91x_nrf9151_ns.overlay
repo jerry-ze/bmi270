@@ -1,0 +1,29 @@
+
+&i2c2 {
+    status = "okay";
+    pinctrl-0 = <&i2c2_default>;
+	pinctrl-1 = <&i2c2_sleep>;
+    pinctrl-names = "default", "sleep";
+    bmi270t: bmi270t@69{
+        compatible = "i2c-device";
+        status = "okay";
+        reg = < 0x69 >;
+    };
+};
+
+&pinctrl {
+	/omit-if-no-ref/ i2c2_default: i2c2_default {
+		group1  {
+			psels = <NRF_PSEL(TWIM_SCL, 0, 13)>,
+					<NRF_PSEL(TWIM_SDA, 0, 14)>;
+		};
+	};
+
+	/omit-if-no-ref/ i2c2_sleep: i2c2_sleep {
+		group1  {
+			psels = <NRF_PSEL(TWIM_SCL, 0, 13)>,
+					<NRF_PSEL(TWIM_SDA, 0, 14)>;
+			low-power-enable;
+		};
+	};
+};
